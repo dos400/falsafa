@@ -1,7 +1,11 @@
 package uz.hamroev.faylasuf.activity
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,6 +16,7 @@ import uz.hamroev.faylasuf.cache.Cache
 import uz.hamroev.faylasuf.database.userDatabase.UserDatabase
 import uz.hamroev.faylasuf.database.userDatabase.UserEntity
 import uz.hamroev.faylasuf.databinding.ActivityHomeBinding
+import uz.hamroev.faylasuf.databinding.DialogContinueBinding
 import uz.hamroev.faylasuf.services.MusicService
 import uz.hamroev.faylasuf.viewModel.SharedViewModel
 
@@ -42,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
         } else {
             navController.navigate(R.id.splashFragment)
         }
+
 
 
         checkSound()
@@ -96,6 +102,33 @@ class HomeActivity : AppCompatActivity() {
         if (Cache.sound == true) {
             startService(musicService)
         }
+    }
+
+
+    private fun isUserWantQuit() {
+        // ask from user do you want to quit with dialog ?
+
+        val alertDialog = android.app.AlertDialog.Builder(binding.root.context)
+        val dialog = alertDialog.create()
+        val bindingContinue =
+            DialogContinueBinding.inflate(LayoutInflater.from(this))
+        dialog.setView(bindingContinue.root)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
+
+        bindingContinue.yesButton.setOnClickListener {
+            navController.popBackStack()
+            navController.navigate(R.id.homeFragment)
+            dialog.dismiss()
+        }
+
+        bindingContinue.noButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
+
     }
 
 

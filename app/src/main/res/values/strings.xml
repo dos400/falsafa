@@ -5,5 +5,17 @@
 
     <string name="kim_faylasuf_bo_lishni_istaydi">Kim faylasuf bo\'lishni istaydi</string>
     <string name="faylasufiy_fikrlash_va_bilimni_oshirish_uchun_savollarga_javob_topishni_boshlang">Faylasufiy fikrlash va bilimni oshirish uchun savollarga javob topishni boshlang</string>
+    <string name="testni_tugatishni_xohlaysizmi">Testni tugatishni xohlaysizmi ?</string>
+
+    <string name="main">Asosiy</string>
+    <string name="save">Saqlanganlar</string>
+    <string name="info">Ilova haqida</string>
+    <string name="downloaded">Yuklab olinganlar</string>
+    <string name="language">Til</string>
+    <string name="share">Yuborish</string>
+    <string name="rate">Baholash</string>
+    <string name="authors">Mualliflar</string>
+    <string name="exit">Chiqish</string>
+
 
 </resources>

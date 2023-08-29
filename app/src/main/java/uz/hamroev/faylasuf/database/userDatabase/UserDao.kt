@@ -71,23 +71,21 @@ interface UserDao {
     fun useHelpAnswer()
 
 
-//
-//    //coin
-//    //update
-//    @Query("update user set coin = coin + :newCoin")
-//    fun updateCoin(newCoin: Int)
-//
-//    //clear coin
-//    @Query("update user set coin=0")
-//    fun clearCoin()
-//
-//    //spendCoin
-//    @Query("update user set coin = coin - :amount")
-//    fun spendCoin(amount: Int)
-//
-//    //current coin amount
-//    @Query("select coin from user")
-//    fun currentCoin(): Flow<Int>
+
+    //coin
+    //update
+    @Query("update user set coin = coin + :newCoin")
+    fun updateCoin(newCoin: Int)
+
+    //clear coin
+    @Query("update user set coin=0")
+    fun clearCoin()
+
+    //spendCoin
+    @Query("update user set coin = coin - :amount")
+    fun spendCoin(amount: Int)
+
+
 
 
 }

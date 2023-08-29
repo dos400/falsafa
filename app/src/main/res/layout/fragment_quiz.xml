@@ -450,7 +450,7 @@
             android:paddingRight="20dp"
             android:paddingBottom="12dp"
             android:text="Davom etish"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
 

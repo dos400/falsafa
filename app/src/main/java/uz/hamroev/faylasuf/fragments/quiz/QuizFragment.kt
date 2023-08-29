@@ -7,18 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uz.hamroev.faylasuf.R
 import uz.hamroev.faylasuf.database.QuizDatabase
 import uz.hamroev.faylasuf.database.userDatabase.UserDatabase
 import uz.hamroev.faylasuf.databinding.DialogContinueBinding
+import uz.hamroev.faylasuf.databinding.DialogQuitBinding
 import uz.hamroev.faylasuf.databinding.FragmentQuizBinding
 import uz.hamroev.faylasuf.utils.*
 import java.text.SimpleDateFormat
@@ -47,6 +49,17 @@ class QuizFragment : Fragment() {
         loadQuiz()
 
         loadUserData()
+
+        binding.backButton.setOnClickListener {
+            isUserWantQuit()
+        }
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle the back button event
+                isUserWantQuit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
 
 
 //        val quiz = QuizDatabase.GET.getQuizDatabase().getQuizDao().getQuiz(1)
@@ -120,6 +133,7 @@ class QuizFragment : Fragment() {
             if (answersEntity.answer == answer) {
                 if (answersEntity.correct == 1) {
                     toast("to'g'ri")
+                    QuizDatabase.GET.getQuizDatabase().getQuizDao().updateUsedQuestion(questionId)
                     val trueRadioButton = binding.radioGroup.getChildAt(whichRadioButtonClick) as RadioButton
                     trueRadioButton.setBackgroundResource(R.drawable.bg_variant_correct)
                     trueRadioButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -133,6 +147,7 @@ class QuizFragment : Fragment() {
 
                 } else {
                     toast("noto'g'ri")
+                    QuizDatabase.GET.getQuizDatabase().getQuizDao().updateUsedQuestion(questionId)
                     val trueRadioButton = binding.radioGroup.getChildAt(whichRadioButtonClick) as RadioButton
                     trueRadioButton.setBackgroundResource(R.drawable.bg_variant_incorrect)
                     trueRadioButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -143,28 +158,29 @@ class QuizFragment : Fragment() {
                             R.drawable.ic_error_red
                         ), null, null, null
                     )
+
                 }
             }
-
-
-            GlobalScope.launch(Dispatchers.Main) {
-                // Delay for 2 seconds
-                binding.check.gone()
-                delay(1500) // Delay time is in milliseconds
-                // Code after the delay
-                // For example, you might update the UI here
-
-
-                if (hasNext()) {
-                    loadNext()
-                } else {
-                    clearAll()
-                    loadNext()
-                }
-            }
-
-
         }
+
+        //global scope for only application class
+        //in fragment we have lifecycleScope
+        lifecycleScope.launch(Dispatchers.Main) {
+            // Delay for 2 seconds
+            binding.check.gone()
+            delay(1500) // Delay time is in milliseconds
+            // Code after the delay
+            // For example, you might update the UI here
+
+
+            if (hasNext()) {
+                loadNext()
+            } else {
+                clearAll()
+                loadNext()
+            }
+        }
+
 
     }
 
@@ -192,6 +208,10 @@ class QuizFragment : Fragment() {
 
     private fun simpleClearRadioButtons() {
         binding.radioGroup.clearCheck()
+
+        isSelect = false
+        binding.check.setBackgroundResource(R.drawable.back_default)
+
 
         binding.variantA.setBackgroundResource(R.drawable.bg_variant_default)
         binding.variantB.setBackgroundResource(R.drawable.bg_variant_default)
@@ -361,7 +381,7 @@ class QuizFragment : Fragment() {
         val quiz = QuizDatabase.GET.getQuizDatabase().getQuizDao().getQuiz(difficulty)
         questionId = quiz[0].id
         val answersList = QuizDatabase.GET.getQuizDatabase().getQuizDao().getAnswersOfQuestion(questionId)
-        QuizDatabase.GET.getQuizDatabase().getQuizDao().updateUsedQuestion(questionId)
+        // QuizDatabase.GET.getQuizDatabase().getQuizDao().updateUsedQuestion(questionId)
 
         binding.apply {
             questionTv.text = quiz[0].question.toString()
@@ -387,6 +407,32 @@ class QuizFragment : Fragment() {
         val vaqt: String = "$date - $time"
         //Toast.makeText(this, "$vaqt", Toast.LENGTH_SHORT).show()
         return vaqt
+
+    }
+
+
+    private fun isUserWantQuit() {
+        // ask from user do you want to quit with dialog ?
+
+        val alertDialog = android.app.AlertDialog.Builder(binding.root.context)
+        val dialog = alertDialog.create()
+        val bindingContinue =
+            DialogQuitBinding.inflate(LayoutInflater.from(requireContext()))
+        dialog.setView(bindingContinue.root)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
+
+        bindingContinue.yesButton.setOnClickListener {
+            findNavController().popBackStack()
+            dialog.dismiss()
+        }
+
+        bindingContinue.noButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
 
     }
 

@@ -16,6 +16,15 @@
         <action
             android:id="@+id/action_homeFragment_to_quizFragment"
             app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_authorsFragment"
+            app:destination="@id/authorsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_savedFragment"
+            app:destination="@id/savedFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -27,4 +36,19 @@
         android:name="uz.hamroev.faylasuf.fragments.quiz.QuizFragment"
         android:label="fragment_quiz"
         tools:layout="@layout/fragment_quiz" />
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="uz.hamroev.faylasuf.fragments.aboutApp.AboutAppFragment"
+        android:label="fragment_about_app"
+        tools:layout="@layout/fragment_about_app" />
+    <fragment
+        android:id="@+id/authorsFragment"
+        android:name="uz.hamroev.faylasuf.fragments.authors.AuthorsFragment"
+        android:label="fragment_authors"
+        tools:layout="@layout/fragment_authors" />
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="uz.hamroev.faylasuf.fragments.saved.SavedFragment"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved" />
 </navigation>
