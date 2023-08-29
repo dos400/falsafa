@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Kim faylasuf bo\'lmoqchi</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="kim_faylasuf_bo_lishni_istaydi">Kim faylasuf bo\'lishni istaydi</string>
+    <string name="faylasufiy_fikrlash_va_bilimni_oshirish_uchun_savollarga_javob_topishni_boshlang">Faylasufiy fikrlash va bilimni oshirish uchun savollarga javob topishni boshlang</string>
+
+</resources>

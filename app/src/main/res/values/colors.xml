@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#50988B</color>
+    <color name="teal_200">#50988B</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="green">#50988B</color>
+
+    <color name="grey">#F2F2F2</color>
+    <color name="grey_seashell">#F1F1F1</color>
+    <color name="grey_blue">#F3F6FD</color>
+    <color name="grey_dark">#777777</color>
+    <color name="grey_for_number">#757475</color>
+    <color name="grey_for_background_progress">#F4F3F6</color>
+
+    <color name="green_light">#30CD63</color>
+
+    <color name="question_background">#D6F6FF</color>
+    <color name="answer_background">#F4F3F6</color>
+
+    <color name="red">#C52451</color>
+
+    <color name="colorSilver26percent">#42919CB2</color>
+
+
+</resources>
